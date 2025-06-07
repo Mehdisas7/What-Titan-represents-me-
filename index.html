@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>أي عملاق أنت؟ | Attack on Titan</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      direction: rtl;
+      background-color: #121212;
+      color: #ffffff;
+      padding: 30px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #facc15;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background-color: #2c2c2c;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #f97316;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1em;
+      display: block;
+      margin: 20px auto;
+    }
+
+    .result {
+      text-align: center;
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #1f1f1f;
+      border-radius: 15px;
+    }
+
+    .result img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧬 اكتشف: أي عملاق يمثل شخصيتك؟</h1>
+
+  <div class="question">
+    <label>1. ما الشيء الأهم بالنسبة لك؟</label>
+    <select id="q1">
+      <option value="attack">الحرية والتمرد</option>
+      <option value="armored">الحماية والواجب</option>
+      <option value="founding">القيادة والتأثير</option>
+      <option value="beast">الذكاء والتحليل</option>
+      <option value="hammer">الإبداع والسيطرة</option>
+    </select>
+  </div>
+
+  <div class="question">
+    <label>2. كيف تتصرف وقت الأزمات؟</label>
+    <select id="q2">
+      <option value="jaw">أتصرف بسرعة</option>
+      <option value="colossal">أنفجر عاطفياً</option>
+      <option value="cart">أتحمل بصبر</option>
+      <option value="female">أوازن بين العاطفة والعقل</option>
+      <option value="attack">أقاتل حتى النهاية</option>
+    </select>
+  </div>
+
+  <div class="question">
+    <label>3. أي نوع من القوة يجذبك أكثر؟</label>
+    <select id="q3">
+      <option value="beast">القوة الذكية</option>
+      <option value="hammer">قوة مبتكرة</option>
+      <option value="armored">قوة دفاعية</option>
+      <option value="colossal">قوة مدمرة</option>
+      <option value="female">قوة مرنة ومركزة</option>
+    </select>
+  </div>
+
+  <button onclick="getTitan()">احصل على نتيجتك 💥</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    const titans = {
+      attack: {
+        name: "🗡️ العملاق الهجومي",
+        desc: "تمثل الإرادة الحرة والثورة. أنت شخص لا يقف أحد في طريقه، ترفض الاستسلام، وتسعى دائمًا لكسر القيود.",
+        img: "https://i.imgur.com/Nw8eY0e.jpg"
+      },
+      armored: {
+        name: "🛡️ العملاق المدرع",
+        desc: "رمز الحماية والانضباط، صلب من الخارج، حساس من الداخل. تتحمل المسؤولية حتى لو كنت تعاني داخليًا.",
+        img: "https://i.imgur.com/Rdnhkno.jpg"
+      },
+      founding: {
+        name: "👑 العملاق المؤسس",
+        desc: "لديك هدوء عميق وقوة داخلية خفية تؤثر على من حولك. تفضل القيادة من خلف الكواليس.",
+        img: "https://i.imgur.com/rBhTfvd.jpg"
+      },
+      beast: {
+        name: "🐵 العملاق الوحش",
+        desc: "ذكي، استراتيجي، غامض. تدرس خطواتك وتفكر بعقلك أولاً قبل أن تتحرك.",
+        img: "https://i.imgur.com/IvZP6FT.jpg"
+      },
+      hammer: {
+        name: "🔨 عملاق المطرقة",
+        desc: "مبدع ومسيطر، تبني قوتك بأفكارك وتصنع أسلوبك الخاص. أنت فنان المعركة.",
+        img: "https://i.imgur.com/UuBTrP3.jpg"
+      },
+      female: {
+        name: "👸 العملاق الأنثى",
+        desc: "ذكي، صلب، متوازن. لديك مرونة وقوة مركّزة، ولا تستهين بقدرتك على التحمل والتخطيط.",
+        img: "https://i.imgur.com/PhOKGMH.jpg"
+      },
+      colossal: {
+        name: "🔥 العملاق الضخم",
+        desc: "تأثيرك هائل، عندما تتحرك يُحدث العالم صدى. تستخدم قوتك بعناية، لكنها مدمّرة عند الضرورة.",
+        img: "https://i.imgur.com/SX8Fz0V.jpg"
+      },
+      jaw: {
+        name: "🐺 عملاق الفك",
+        desc: "سريع، مندفع، لا تهاب أي تحدٍ. تعتمد على المبادرة والسرعة لحسم الأمور.",
+        img: "https://i.imgur.com/fjigVKO.jpg"
+      },
+      cart: {
+        name: "🚛 عملاق العربة",
+        desc: "صابر، يتحمل فوق طاقته، يخدم من الظل ويمنح الآخرين القوة دون أن يطلب شيئًا.",
+        img: "https://i.imgur.com/xGViJeE.jpg"
+      }
+    };
+
+    function getTitan() {
+      const answers = [q1.value, q2.value, q3.value];
+      const score = {};
+
+      answers.forEach(ans => {
+        score[ans] = (score[ans] || 0) + 1;
+      });
+
+      let titanKey = Object.keys(score).reduce((a, b) => score[a] > score[b] ? a : b);
+      let titan = titans[titanKey];
+
+      document.getElementById("result").innerHTML = `
+        <h2>${titan.name}</h2>
+        <p>${titan.desc}</p>
+        <img src="${titan.img}" alt="صورة العملاق">
+      `;
+    }
+  </script>
+
+</body>
+</html>
